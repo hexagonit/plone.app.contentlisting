@@ -1,5 +1,6 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:browser="http://namespaces.zope.org/browser">
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:zcml="http://namespaces.zope.org/zcml">
 
 <adapter
     factory=".contentlisting.ContentListing"
@@ -25,9 +26,14 @@
     factory=".contentlisting.ContentListing"
     for="Products.CMFPlone.PloneBatch.Batch"
     />
-
-
+    
 <adapter
+    zcml:condition="not-have plone-4"
+    factory=".catalog.CatalogContentListingObject"
+    for="Products.ZCatalog.CatalogBrains.AbstractCatalogBrain"
+    />
+<adapter
+    zcml:condition="have plone-4"
     factory=".catalog.CatalogContentListingObject"
     for="Products.ZCatalog.interfaces.ICatalogBrain"
     />

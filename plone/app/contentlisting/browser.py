@@ -4,7 +4,6 @@ from Products.CMFCore.utils import getToolByName
 import logging
 import types
 
-
 class FolderListing(BrowserView):
 
     def __call__(self, batch=False, b_size=100, b_start=0, **kw):
@@ -37,6 +36,7 @@ class FolderListing(BrowserView):
 
 
 class SearchResults(BrowserView):
+    catalog = 'portal_catalog'
 
     def __call__(self, query=None, batch=False, b_size=100, b_start=0, **kw):
         """ Get properly wrapped search results from the catalog.
@@ -55,14 +55,13 @@ class SearchResults(BrowserView):
 
         # Check for invalid indexes
         logger = logging.getLogger('plone.app.contentlisting')
-        catalog = getToolByName(self.context, 'portal_catalog')
+        catalog = getToolByName(self.context, self.catalog)
         indexes = catalog.indexes() + ['sort_on', 'sort_order', ]
         invalid_indexes = [index for index in query if index not in indexes]
         for index in invalid_indexes:
             logger.info("'%s' is an invalid catalog index" % index)
 
         query = self.ensureFriendlyTypes(query)
-
         results = IContentListing(catalog(query))
         if batch:
             from Products.CMFPlone import Batch
