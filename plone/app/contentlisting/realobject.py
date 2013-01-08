@@ -35,7 +35,7 @@ class RealContentListingObject(BaseContentListingObject):
             raise AttributeError(name)
         obj = self.getObject()
         if hasattr(aq_base(obj), name):
-            return getattr(aq_base(obj), name)
+            return getattr(obj, name)
         else:
             raise AttributeError(name)
 

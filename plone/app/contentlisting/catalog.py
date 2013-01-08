@@ -39,7 +39,7 @@ class CatalogContentListingObject(BaseContentListingObject):
         if hasattr(aq_base(self._brain), name):
             return getattr(self._brain, name)
         elif hasattr(aq_base(self.getObject()), name):
-            return getattr(aq_base(self.getObject()), name)
+            return getattr(self.getObject(), name)
         else:
             raise AttributeError(name)
 

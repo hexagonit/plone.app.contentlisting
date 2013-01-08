@@ -77,8 +77,9 @@ class TestIndividualCatalogContentItems(ContentlistingFunctionalTestCase):
 
     def test_special_getattr_from_object(self):
         # Asking for an attribute not in the contentlistingobject, should
-        # defer lookup to the brain"""
-        self.assertEqual(self.item.absolute_url(), '')
+        # defer lookup to the brain
+        self.assertEqual(self.item.absolute_url(),
+            'http://nohost/plone/test-folder/mypage')
         self.assertEqual(repr(self.item.getDataOrigin()),
             '<ATDocument at /plone/test-folder/mypage>')
 
@@ -170,7 +171,8 @@ class TestIndividualRealContentItems(ContentlistingFunctionalTestCase):
     def test_special_getattr_from_object(self):
         # Asking for an attribute not in the contentlistingobject, should
         # defer lookup to the brain
-        self.assertEqual(self.item.absolute_url(), '')
+        self.assertEqual(self.item.absolute_url(),
+            'http://nohost/plone/test-folder/mypage')
         self.assertEqual(repr(self.item.getDataOrigin()),
             '<ATDocument at /plone/test-folder/mypage>')
 
